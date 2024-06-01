@@ -20,7 +20,7 @@ pipelines:
     steps:
         - name: first
           type: Bash
-      {{ if .Values.repo.integrationName }}
+          {{ if .Values.repo.integrationName }}
           configuration:
             inputResources:
               - name: {{ .Values.namePrefix }}_repo
@@ -41,29 +41,29 @@ pipelines:
             onComplete:
               - echo "onComplete executes after onSuccess or onFailure"
 
-          - name: variable_selection
-            type: Bash
-            configuration:
-              inputSteps:
-                - name: first
-              environmentVariables:
-                forceFail:
-                  default: "false"
-                  description: "set to 'true' to force the step to fail."
-                  values:
-                    - "false"
-                    - "true"
-            execution:
-              onStart:
-                - if [ ${forceFail} == "true" ]; then exit 1; fi
-              onExecute:
-                - echo "This step will succeed"
-              onFailure:
-                - echo "step has failed."
-              onSuccess:
-                - echo "step has succeeded."
-              onComplete:
-                - echo "onComplete executes regardless of success or failure. forceFail is ${forceFail}"
+        - name: variable_selection
+          type: Bash
+          configuration:
+            inputSteps:
+              - name: first
+            environmentVariables:
+              forceFail:
+                default: "false"
+                description: "set to 'true' to force the step to fail."
+                values:
+                  - "false"
+                  - "true"
+          execution:
+            onStart:
+              - if [ ${forceFail} == "true" ]; then exit 1; fi
+            onExecute:
+              - echo "This step will succeed"
+            onFailure:
+              - echo "step has failed."
+            onSuccess:
+              - echo "step has succeeded."
+            onComplete:
+              - echo "onComplete executes regardless of success or failure. forceFail is ${forceFail}"
 
           - name: add_run_variable
             type: Bash
