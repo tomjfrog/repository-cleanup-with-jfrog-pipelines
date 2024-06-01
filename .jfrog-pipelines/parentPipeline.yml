@@ -6,14 +6,14 @@ resources:
       releaseVersion: ""
 
   {{ if .Values.repo.integrationName }}
-- name: {{ .Values.namePrefix }}_repo
-  type: GitRepo
-  configuration:
-    path: {{ .Values.repo.path }}
-    gitProvider: {{ .Values.repo.integrationName }}
-    branches:
-      include: {{ .Values.repo.branchPattern }}
-  {{ end }}
+  - name: {{ .Values.namePrefix }}_repo
+    type: GitRepo
+    configuration:
+      path: {{ .Values.repo.path }}
+      gitProvider: {{ .Values.repo.integrationName }}
+      branches:
+        include: {{ .Values.repo.branchPattern }}
+    {{ end }}
 
 pipelines:
   - name: {{ .Values.namePrefix }}_hello_world
