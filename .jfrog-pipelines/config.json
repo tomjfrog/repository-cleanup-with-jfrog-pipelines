@@ -1,0 +1,22 @@
+{
+  "cleanupConfigOverrides": [
+    {
+      "repoName": "foo",
+      "config": {
+        "repoType":"docker",
+        "expiry": 12335,
+        "protectedTags": [
+          "latest",
+          "prod"
+        ]
+      }
+    },
+    {
+      "repoName": "foo",
+      "config": {
+        "repoType":"maven",
+        "expiry": 12335
+      }
+    }
+  ]
+}

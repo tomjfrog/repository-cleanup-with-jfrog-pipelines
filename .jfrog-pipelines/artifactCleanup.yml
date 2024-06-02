@@ -1,5 +1,6 @@
 valuesFilePath: ./values.yml
 __globals:
+  artifactCleanupWebhookName: &artifactCleanupWebhookName '{{ default "artifact_cleanup_webhook" .Values.artifactCleanup.metadata.artifactCleanupWebhookName }}'
   artifactCleanupPropertyBagName: &artifactCleanupPropertyBagName '{{ default "artifact_cleanup_property_bag" .Values.artifactCleanup.metadata.propertyBagResourceName }}'
   artifactCleanupCronTriggerName: &artifactCleanupCronTriggerName '{{ default "artifact_cleanup_cron_trigger" .Values.artifactCleanup.metadata.cronTriggerResourceName }}'
   dockerCleanupPropertyBagName: &dockerCleanupPropertyBagName '{{ default "docker_cleanup_property_bag" .Values.dockerCleanup.metadata.propertyBagResourceName }}'
@@ -77,6 +78,10 @@ __globals:
       fi
 
 resources:
+  - name: *artifactCleanupWebhookName
+    type: IncomingWebhook
+    configuration:
+      webhookName: cleanup_inbound_webhook
   - name: *artifactCleanupPropertyBagName
     type: PropertyBag
     configuration:
@@ -138,7 +143,8 @@ pipelines:
 
       {{ if eq true .Values.artifactCleanup.controls.cron.enabled }}
       inputResources:
-        - name: *artifactCleanupCronTriggerName
+#        - name: *artifactCleanupCronTriggerName
+        - name: *artifactCleanupWebhookName
       {{ end }}
       outputResources:
         - name: *artifactCleanupPropertyBagName

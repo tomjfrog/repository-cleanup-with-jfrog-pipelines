@@ -14,6 +14,9 @@ artifactCleanup:
     # [Optional] Default value: artifact_cleanup_cron_trigger
     cronTriggerResourceName: hpe_artifact_cleanup_cron_trigger
 
+    # [Optional] Default value: artifact_cleanup_webhook
+    artifactCleanupWebhookName: artifact_cleanup_webhook
+
   controls:
     # [Optional] When defined with enabled: true then new Cron will be setup. Default expression: 0 0 5 ? * 1
     cron:
