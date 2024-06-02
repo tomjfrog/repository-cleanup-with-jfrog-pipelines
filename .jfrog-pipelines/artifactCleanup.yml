@@ -81,7 +81,7 @@ resources:
   - name: *artifactCleanupWebhookName
     type: IncomingWebhook
     configuration:
-      webhookName: cleanup_inbound_webhook
+      webhookName: *artifactCleanupWebhookName
   - name: *artifactCleanupPropertyBagName
     type: PropertyBag
     configuration:
