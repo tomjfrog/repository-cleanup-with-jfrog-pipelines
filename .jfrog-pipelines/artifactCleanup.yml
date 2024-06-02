@@ -141,10 +141,14 @@ pipelines:
             default: {{ default 100 .Values.artifactCleanup.controls.maxArtifacts }}
             description: Maximum allowed artifacts to be deleted
 
+      {{ if eq true .Values.artifactCleanup.controls.webhook.enabled }}
+      inputResources:
+        - name: *artifactCleanupWebhookName
+      {{ end }}
+
       {{ if eq true .Values.artifactCleanup.controls.cron.enabled }}
       inputResources:
-#        - name: *artifactCleanupCronTriggerName
-        - name: *artifactCleanupWebhookName
+        - name: *artifactCleanupCronTriggerName
       {{ end }}
       outputResources:
         - name: *artifactCleanupPropertyBagName
